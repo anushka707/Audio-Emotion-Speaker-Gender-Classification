@@ -1,20 +1,30 @@
-Real-Time Speech Emotion & Gender Recognition
+# Real-Time Speech Emotion & Gender Recognition
 
-A deep-learning based system that predicts emotion (8 classes) and gender (male/female) from voice in real time using Wav2Vec2 feature extraction, PyTorch classifiers, and microphone streaming.
+A deep-learning based system that predicts **emotion (8 classes)** and **gender (male/female)** from voice **in real time** using **Wav2Vec2 feature extraction**, **PyTorch classifiers**, and **microphone streaming**.
 
-This project includes:
+---
 
-• Emotion classification → neutral, calm, happy, sad, angry, fearful, disgust, surprised
-• Gender classification → male, female
-• Fully trained PyTorch models
-• Real-time microphone inference (realtime_predict.py)
-• Offline prediction for .wav files (predict.py)
-• Training scripts for both models
-• Evaluation scripts (confusion matrix, ROC curves, PR curves)
-• Clean preprocessing pipeline using RAVDESS + TESS datasets
+## Features
 
-Project Structure
+### Emotion Classification  
+Predicts:  
+**neutral, calm, happy, sad, angry, fearful, disgust, surprised**
 
+### Gender Classification  
+Predicts:  
+**male, female**
+
+### System Highlights  
+- Fully trained PyTorch models  
+- Real-time microphone inference (`realtime_predict.py`)  
+- Offline prediction for `.wav` files (`predict.py`)  
+- Training scripts for both models  
+- Evaluation: confusion matrix, ROC curves, PR curves  
+- Clean preprocessing pipeline using **RAVDESS + TESS**  
+
+---
+
+## Project Structure
 Project/
 │
 ├── models/
@@ -34,143 +44,81 @@ Project/
 ├── README.md
 └── .gitignore
 
-
-Features
-Emotion Recognition
-
-• Trained on RAVDESS + TESS
-• 8 emotion classes
-• Strong accuracy on clean audio
-• Robust to light noise
-
-Gender Recognition
-
-• Trained on balanced male/female samples
-• Wav2Vec2 embeddings + Dense classifier
-• High accuracy
-
-Real-Time Predictions
-
-• Microphone streaming every 0.5 seconds
-• Wav2Vec2 feature extraction per chunk
-• Prints live predictions continuously
-
-Installation
-
-Clone the repository:
+## Installation
 
 git clone https://github.com/anushka707/Audio-Emotion-Speaker-Gender-Classification
+cd Audio-Emotion-Speaker-Gender-Classification
 
-Create virtual environment:
 
+### Create virtual environment
 python3 -m venv venv
 source venv/bin/activate
 
-Install dependencies:
-
+### Install dependencies
 pip install -r requirements.txt
 
+## Training the Models
 
-Training the Models
-Train Emotion Model
-
+### Train Emotion Model
 python train_emotion.py
 
-Model saved to:
-models/emotion_model.pth
+saved to: models/emotion_model.pth
 
-Train Gender Model
-
+### Train Gender Model
 python train_gender.py
 
-Model saved to:
-models/gender_model.pth
+saved to: models/gender_model.pth
 
-
-Evaluation
+## Evaluation
 
 Generates:
-• Confusion Matrix
-• Classification Report
-• ROC Curves
-• Precision–Recall Curves
+Confusion Matrix
+Classification Report
+ROC Curves
+Precision–Recall Curves
 
 Run:
-
 python evaluate.py
 
-Outputs saved in:
+All plots saved in:
 results/
 
 
-Offline Prediction
+## Offline Prediction
 
 Predict emotion + gender from a .wav file:
-
 python predict.py sample.wav
 
-Example output:
 
+Example output:
 Emotion: happy
 Gender: female
 
+## Real-Time Microphone Prediction
 
-Real-Time Microphone Prediction
-
-Start live prediction:
-
+Start live inference:
 python realtime_predict.py
 
 Example output:
-
-Emotion: excited | Gender: female
-Emotion: calm | Gender: female
 Emotion: surprised | Gender: female
-
-Stop using:
-
-Ctrl + C
+Emotion: calm      | Gender: male
 
 
-Model Architecture
-Feature Extraction
-
-• Uses facebook/wav2vec2-base
-• Resamples audio to 16 kHz
-• Extracts dense embeddings
-• No torchaudio required (soundfile + scipy instead)
-
-Emotion Classifier
-
-• Input: Wav2Vec2 feature vector
-• Dense layers
-• ReLU activation
-• Softmax output (8 classes)
-
-Gender Classifier
-
-• Same idea but fewer layers
-• Sigmoid output
+## Model Architecture
+### Feature Extraction
+-Uses facebook/wav2vec2-base
+-Audio always resampled to 16 kHz
+=Extracts dense embeddings
+-Avoids torchaudio → uses soundfile + scipy
 
 
-Datasets Used
-RAVDESS
+### Emotion Classifier
+-Input: Wav2Vec2 embedding
+-MLP with:
+Dense → ReLU → Dropout
+Dense → ReLU → Dropout
+Softmax output
 
-• 24 actors
-• 8 emotions
-• Clean studio recordings
-
-TESS
-
-• 2000+ utterances
-• Covers similar emotion spectrum
-• High-quality samples ideal for ML
-
-
-Future Enhancements
-
-• ONNX export for deployment
-• Streamlit dashboard
-• Add noise reduction
-• Multi-language support
-• Add emotion intensity classification
+### Gender Classifier
+-Smaller MLP
+=Sigmoid output
