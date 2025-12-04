@@ -1,0 +1,17 @@
+# Virtual environment
+venv/
+*.pyc
+__pycache__/
+
+# Audio files
+*.wav
+*.mp3
+
+# Model weights
+models/*.pth
+
+# MacOS junk
+.DS_Store
+
+# Logs
+*.log
